@@ -13,7 +13,16 @@ class User extends Model
     protected $returnType       = UserEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = [
+        'firstname',
+        'lastname',
+        'email',
+        'username',
+        'password',
+        'reset_code',
+        'reset_expiry',
+        'banned_at'
+    ];
 
     protected bool $allowEmptyInserts = false;
 
@@ -32,12 +41,22 @@ class User extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = ['hashPassword'];
     protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
+    protected $beforeUpdate   = ['hashPassword'];
     protected $afterUpdate    = [];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function hashPassword(array $data)
+    {
+        if (!isset($data['data']['password'])) {
+            return $data;
+        }
+
+        $data['data']['password'] = password_hash($data['data']['password'], PASSWORD_DEFAULT);
+        return $data;
+    }
 }
