@@ -56,9 +56,40 @@ class UsersController extends BaseController
         return view('users/register');
     }
 
+    public function createAccount()
+    {
+        $validated = $this->validate(array(
+            'username'         => 'required|min_length[5]|max_length[25]|is_unique[users.username]',
+            'password'         => 'required|min_length[5]|max_length[50]',
+            'confirm_password' => 'required|matches[password]',
+            'firstname'        => 'required|min_length[5]|max_length[60]',
+            'lastname'         => 'required|min_length[5]|max_length[60]',
+            'email'            => 'required|min_length[5]|max_length[60]|valid_email|is_unique[users.email]',
+        ));
+
+        // if validation fails
+        if (!$validated) return view('users/register', [
+            'errors' => $this->validator->getErrors()
+        ]);
+
+        // get submitted form data
+        $form = new UserEntity($this->request->getPost());
+
+        // create user record
+        $registered = model(User::class)->save($form);
+
+        // if an error occurs while saving the user
+        if (!$registered) return view('users/register', [
+            'error' => 'Failed to save user'
+        ]);
+
+        // redirect to dashboard
+        return redirect()->to(env('app.baseURL') . 'dashboard');
+    }
+
     public function logout()
     {
         session()->remove('user');
-        return redirect('/login');
+        return redirect()->to(env('app.baseURL') . 'login');
     }
 }
