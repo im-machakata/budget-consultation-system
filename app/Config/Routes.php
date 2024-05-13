@@ -10,6 +10,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->group('', ['filter' => 'guest'], static function (RouteCollection $routes): void {
     $routes->get('/login', [UsersController::class,  'login']);
     $routes->post('/login', [UsersController::class, 'createSession']);
+    $routes->get('/register', [UsersController::class,  'register']);
+    $routes->post('/register', [UsersController::class, 'createAccount']);
 });
 
 $routes->group('', ['filter' => 'auth'], static function (RouteCollection $routes): void {

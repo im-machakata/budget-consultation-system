@@ -51,6 +51,11 @@ class UsersController extends BaseController
         return redirect('/dashboard');
     }
 
+    public function register()
+    {
+        return view('users/register');
+    }
+
     public function logout()
     {
         session()->remove('user');
