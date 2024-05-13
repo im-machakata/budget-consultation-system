@@ -1,0 +1,15 @@
+.form-control {
+  box-shadow: none !important;
+  outline: none !important;
+  border-color: #33ac5b;
+}
+.form-control:focus {
+  border-color: #176932;
+}
+.btn.btn-success {
+  border-bottom: 0.3em solid #257941;
+}
+
+.btn.btn-success:hover {
+  border-bottom: 0.3em solid #176932;
+}

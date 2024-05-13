@@ -1,0 +1,3 @@
+$(function () {
+    // silence is golden
+});
