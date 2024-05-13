@@ -2,12 +2,12 @@
 
 namespace Config;
 
-use App\Filters\AccountExists;
-use App\Filters\Authenticated;
-use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
-use CodeIgniter\Filters\DebugToolbar;
+use App\Filters\IsAuthenticated;
+use App\Filters\IsGuest;
 use CodeIgniter\Filters\Honeypot;
+use CodeIgniter\Config\BaseConfig;
+use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\InvalidChars;
 use CodeIgniter\Filters\SecureHeaders;
 
@@ -22,6 +22,8 @@ class Filters extends BaseConfig
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
+        'guest'         => IsGuest::class,
+        'auth'          => IsAuthenticated::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
