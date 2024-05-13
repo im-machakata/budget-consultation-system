@@ -7,6 +7,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class UsersController extends BaseController
 {
+    public function login()
+    {
+        return view('users/login');
+    }
+
     public function logout()
     {
         session()->remove('user');
