@@ -48,7 +48,7 @@ class UsersController extends BaseController
         session()->set('user', $user);
 
         // redirect to dashboard
-        return redirect('/dashboard');
+        return redirect()->to(env('app.baseURL') . 'dashboard');
     }
 
     public function register()
