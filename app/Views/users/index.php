@@ -19,8 +19,8 @@ echo $this->include('_templates/head');
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
+                            <th scope="col">Firstname</th>
+                            <th scope="col">Lastname</th>
                             <th scope="col">Email</th>
                             <th scope="col">Actions</th>
                         </tr>
