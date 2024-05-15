@@ -5,12 +5,20 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Report;
 use CodeIgniter\HTTP\ResponseInterface;
+use UserRoles;
 
 class ReportsController extends BaseController
 {
     public function index()
     {
+        $user = session()->get('user');
         $reports = model(Report::class);
+
+        // show approved reports only to citizens
+        if ($user->roles == UserRoles::CITIZEN) {
+            $reports = $reports->where('approved', '1');
+        }
+
         return view('reports/index', [
             'reports' => $reports->orderBy('id', 'DESC')->paginate(10),
             'pager' => $reports->pager
