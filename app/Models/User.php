@@ -21,7 +21,8 @@ class User extends Model
         'password',
         'reset_code',
         'reset_expiry',
-        'banned_at'
+        'banned_at',
+        'roles'
     ];
 
     protected bool $allowEmptyInserts = false;
