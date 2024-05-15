@@ -3,6 +3,7 @@
 use App\Controllers\DashboardsController;
 use App\Controllers\UsersController;
 use App\Controllers\MigrationController;
+use App\Controllers\ReportsController;
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
@@ -17,6 +18,7 @@ $routes->group('', ['filter' => 'guest'], static function (RouteCollection $rout
 $routes->group('', ['filter' => 'auth'], static function (RouteCollection $routes): void {
     $routes->addRedirect('/', '/dashboard', 301);
     $routes->get('/dashboard', [DashboardsController::class,  'index']);
+    $routes->get('/reports', [ReportsController::class,  'index']);
 
     // admin user routes
     $routes->group('', ['filter' => 'auth:' . UserRoles::ADMIN], static function (RouteCollection $routes): void {
@@ -26,6 +28,12 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
         $routes->get('/users/edit/(:num)', [UsersController::class,  'edit']);
         $routes->post('/users/edit/(:num)', [UsersController::class,  'update']);
     });
+
+    // executive user routes
+    $routes->group('', ['filter' => 'auth:' . UserRoles::EXECUTIVE], static function (RouteCollection $routes): void {
+        $routes->post('/reports', [ReportsController::class,  'create']);
+    });
+
     $routes->get('/logout', [UsersController::class, 'logout']);
 });
 
