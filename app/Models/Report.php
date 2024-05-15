@@ -17,6 +17,7 @@ class Report extends Model
         'item',
         'quantity',
         'due_date',
+        'approved'
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -27,6 +27,8 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
         $routes->get('/users/unban/(:num)', [UsersController::class,  'unban']);
         $routes->get('/users/edit/(:num)', [UsersController::class,  'edit']);
         $routes->post('/users/edit/(:num)', [UsersController::class,  'update']);
+        $routes->get('/reports/approve/(:num)', [ReportsController::class,  'approve']);
+        $routes->get('/reports/reject/(:num)', [ReportsController::class,  'reject']);
     });
 
     // executive user routes

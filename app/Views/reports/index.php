@@ -1,13 +1,19 @@
 <?php
-$this->setVar('title', 'New Request');
-echo $this->include('_templates/head');
 $user = session()->get('user');
+$this->setVar('title', 'Reports');
+echo $this->include('_templates/head');
 ?>
 <main class="bg-light min-vh-100">
     <?= $this->include('_templates/navigation'); ?>
     <div class="row container-fluid justify-content-start mx-auto my-5">
-        <h1 class="fs-2">New budget report</h1>
-        <p>Change user's details and system access levels.</p>
+        <h1 class="fs-2">Reports</h1>
+        <?php if ($user->roles == UserRoles::EXECUTIVE) : ?>
+            <p>View existing or create new reports. </p>
+        <?php elseif ($user->roles == UserRoles::ADMIN) : ?>
+            <p>View, approve or rejected exisitng reports.</p>
+        <?php else : ?>
+            <p>What are your thoughts on this budget report.</p>
+        <?php endif; ?>
         <div class="col-12">
             <div class="container-fluid bg-white p-2 shadow-sm rounded">
                 <?php if ($user->roles == UserRoles::EXECUTIVE) : ?>
@@ -42,6 +48,7 @@ $user = session()->get('user');
                                 <th scope="col">ID</th>
                                 <th scope="col">Item</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Due On</th>
                                 <?php if ($user->roles == UserRoles::ADMIN) : ?>
                                     <th scope="col">Actions</th>
                                 <?php endif; ?>
@@ -53,13 +60,18 @@ $user = session()->get('user');
                                     <td><?= $report['id'] ?></td>
                                     <td><?= $report['item'] ?></td>
                                     <td><?= $report['quantity'] ?></td>
+                                    <td><?= $report['due_date'] ?></td>
 
                                     <?php if ($user->roles == UserRoles::ADMIN) : ?>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="/reports/delete/<?= $report['id'] ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
-                                                <a href="/reports/reject/<?= $report['id'] ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
-                                                <a href="/reports/approve/<?= $report['id'] ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
+                                                <?php if ($report['approved'] == 1) : ?>
+                                                    <a href="/reports/reject/<?= $report['id'] ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
+                                                    <a href="/reports/approve/<?= $report['id'] ?>" class="btn btn-sm btn-success border-0 disabled"><i class="fa fa-check"></i> Approved</a>
+                                                <?php else : ?>
+                                                    <a href="/reports/reject/<?= $report['id'] ?>" class="btn btn-sm btn-warning disabled"><i class="fa fa-cancel"></i> Rejected</a>
+                                                    <a href="/reports/approve/<?= $report['id'] ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
+                                                <?php endif; ?>
                                             </div>
                                         </td>
                                     <?php endif; ?>
