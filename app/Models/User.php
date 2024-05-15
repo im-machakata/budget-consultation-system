@@ -50,6 +50,9 @@ class User extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
+    public function banned(){
+        return $this->where('banned_at','IS NOT NULL');
+    }
     protected function hashPassword(array $data)
     {
         if (!isset($data['data']['password'])) {
