@@ -19,6 +19,9 @@ class MigrationController extends BaseController
         // run new migrations
         command('migrate');
 
+        // seed admins
+        command('db:seed AdminSeeder');
+
         // say hello world or something
         return 'It is done!';
     }
