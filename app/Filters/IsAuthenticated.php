@@ -30,7 +30,7 @@ class IsAuthenticated implements FilterInterface
             return redirect()->to(env('app.baseURL') . 'login');
         }
 
-        if (!in_array(session()->get('user')->roles, $arguments)) {
+        if ($arguments && !in_array(session()->get('user')->roles, $arguments)) {
             return response()->setBody('Not authorised!')->setStatusCode(401);
         }
     }
