@@ -15,6 +15,10 @@ class CreateCommentsTable extends Migration
                 'type' => 'INT',
                 'constraint' => 8
             ],
+            'report_id' => [
+                'type' => 'INT',
+                'constraint' => 8
+            ],
             'comment' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
@@ -36,6 +40,7 @@ class CreateCommentsTable extends Migration
             ],
         ]);
         $this->forge->addForeignKey('user_id', 'users', 'id');
+        $this->forge->addForeignKey('report_id', 'reports', 'id');
         $this->forge->createTable('comments');
     }
 
