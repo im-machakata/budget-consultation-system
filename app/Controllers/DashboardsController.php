@@ -23,8 +23,8 @@ class DashboardsController extends BaseController
             $dashboardReports = array(
                 array(
                     'icon'    => 'fa fa-comments',
-                    'comment' => 'Approved Comments',
-                    'value'   => $comments->selectCount('id')->first()['id']
+                    'comment' => 'My Comments',
+                    'value'   => $comments->where('user_id',$user->id)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-ban',
@@ -39,7 +39,7 @@ class DashboardsController extends BaseController
                 array(
                     'icon'    => 'fa fa-newspaper',
                     'comment' => 'All Reports',
-                    'value'   => $reports->selectCount('id')->first()['id']
+                    'value'   => $reports->selectCount('id')->first()->id
                 )
             );
         } elseif ($user->roles == UserRoles::EXECUTIVE) {
@@ -47,22 +47,22 @@ class DashboardsController extends BaseController
                 array(
                     'icon'    => 'fa fa-newspaper',
                     'comment' => 'Approved Reports',
-                    'value'   => $reports->ownedBy($user->id)->where('approved', true)->selectCount('id')->first()['id']
+                    'value'   => $reports->ownedBy($user->id)->where('approved', true)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-newspaper',
                     'comment' => 'Rejected Reports',
-                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->selectCount('id')->first()['id']
+                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-newspaper',
                     'comment' => 'Submitted Reports',
-                    'value'   => $reports->ownedBy($user->id)->selectCount('id')->first()['id']
+                    'value'   => $reports->ownedBy($user->id)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-comment',
                     'comment' => 'Total Comments',
-                    'value'   => $comments->ownedBy($user->id)->selectCount('id')->first()['id']
+                    'value'   => $comments->ownedBy($user->id)->selectCount('id')->first()->id
                 ),
             );
         } elseif ($user->roles == UserRoles::ADMIN) {
@@ -70,7 +70,7 @@ class DashboardsController extends BaseController
                 array(
                     'icon'    => 'fa fa-comments',
                     'comment' => 'Approved Comments',
-                    'value'   => $comments->selectCount('id')->first()['id']
+                    'value'   => $comments->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-ban',
@@ -85,7 +85,7 @@ class DashboardsController extends BaseController
                 array(
                     'icon'    => 'fa fa-newspaper',
                     'comment' => 'All Reports',
-                    'value'   => $reports->selectCount('id')->first()['id']
+                    'value'   => $reports->selectCount('id')->first()->id
                 )
             );
         }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\CommentEntity;
 use CodeIgniter\Model;
 
 class Comment extends Model
@@ -9,7 +10,7 @@ class Comment extends Model
     protected $table            = 'comments';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = CommentEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [

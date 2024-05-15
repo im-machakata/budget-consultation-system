@@ -3,6 +3,7 @@
 namespace App\Entities;
 
 use App\Models\Comment;
+use App\Models\User;
 use CodeIgniter\Entity\Entity;
 
 class ReportEntity extends Entity
@@ -15,5 +16,10 @@ class ReportEntity extends Entity
     {
         if (!$this->id) return [];
         return model(Comment::class)->where('report_id', $this->id)->findAll();
+    }
+    public function owner()
+    {
+        if (!$this->id) return null;
+        return model(User::class)->where('user_id', $this->id)->first();
     }
 }
