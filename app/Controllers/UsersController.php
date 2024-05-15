@@ -30,6 +30,17 @@ class UsersController extends BaseController
 
         return redirect()->back();
     }
+    public function unban($id)
+    {
+        $user = model(User::class)->find($id);
+
+        if ($user->banned_at) {
+            $user->banned_at = NULL;
+            model(User::class)->save($user);
+        }
+
+        return redirect()->back();
+    }
     public function edit($id)
     {
         $user = model(User::class)->find($id);
