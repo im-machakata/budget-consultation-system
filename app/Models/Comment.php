@@ -43,4 +43,9 @@ class Comment extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function ownedBy(int $userId)
+    {
+        return $this->where('user_id', $userId);
+    }
 }
