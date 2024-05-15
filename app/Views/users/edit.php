@@ -4,7 +4,7 @@ echo $this->include('_templates/head');
 ?>
 <main class="bg-light min-vh-100">
     <?= $this->include('_templates/navigation'); ?>
-    <div class="row container-fluid justify-content-start my-5">
+    <div class="row container-fluid justify-content-start my-5 mx-auto">
         <h1 class="fs-2">Update <?= $user->firstname ?>'s profile</h1>
         <p>Change user's details and system access levels.</p>
         <form action="/users/edit/<?= $user->id ?>" method="post" class="col-12 col-lg-6 row">

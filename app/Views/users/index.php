@@ -5,7 +5,7 @@ echo $this->include('_templates/head');
 ?>
 <main class="bg-light min-vh-100">
     <?= $this->include('_templates/navigation'); ?>
-    <div class="container-fluid">
+    <div class="container-fluid justify-content-center px-3 px-lg-4">
         <h1 class="fs-2 fw-bold">Users</h1>
         <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
         <div class="bg-white shadow-sm rounded p-2 pb-2">
