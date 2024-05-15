@@ -70,7 +70,7 @@ class UsersController extends BaseController
         $form = new UserEntity($this->request->getPost());
         $form->id = $id;
 
-        if (!$form->pasword) {
+        if (!$form->password) {
             unset($form->password);
         }
 
