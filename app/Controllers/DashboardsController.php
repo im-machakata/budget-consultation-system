@@ -45,25 +45,25 @@ class DashboardsController extends BaseController
         } elseif ($user->roles == UserRoles::EXECUTIVE) {
             $dashboardReports = array(
                 array(
-                    'icon'    => 'fa fa-comments',
-                    'comment' => 'Approved Comments',
-                    'value'   => $comments->selectCount('id')->first()['id']
-                ),
-                array(
-                    'icon'    => 'fa fa-ban',
-                    'comment' => 'Banned Users',
-                    'value'   => $users->banned()->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-user',
-                    'comment' => 'Registered Users',
-                    'value'   => $users->selectCount('id')->first()->id
+                    'icon'    => 'fa fa-newspaper',
+                    'comment' => 'Approved Reports',
+                    'value'   => $reports->ownedBy($user->id)->where('approved', true)->selectCount('id')->first()['id']
                 ),
                 array(
                     'icon'    => 'fa fa-newspaper',
-                    'comment' => 'All Reports',
-                    'value'   => $reports->selectCount('id')->first()['id']
-                )
+                    'comment' => 'Rejected Reports',
+                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->selectCount('id')->first()['id']
+                ),
+                array(
+                    'icon'    => 'fa fa-newspaper',
+                    'comment' => 'Submitted Reports',
+                    'value'   => $reports->ownedBy($user->id)->selectCount('id')->first()['id']
+                ),
+                array(
+                    'icon'    => 'fa fa-comment',
+                    'comment' => 'Total Comments',
+                    'value'   => $comments->ownedBy($user->id)->selectCount('id')->first()['id']
+                ),
             );
         } elseif ($user->roles == UserRoles::ADMIN) {
             $dashboardReports = array(
