@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Entities\UserEntity;
 use App\Models\User;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\ResponseInterface;
 use UserRoles;
 
@@ -22,13 +23,58 @@ class UsersController extends BaseController
     {
         $user = model(User::class)->find($id);
 
-        if(!$user->banned_at){
+        if (!$user->banned_at) {
             $user->banned_at = time();
             model(User::class)->save($user);
         }
-        
+
         return redirect()->back();
     }
+    public function edit($id)
+    {
+        $user = model(User::class)->find($id);
+        if (!$user) throw new PageNotFoundException();
+
+        return view('users/edit', ['user' => $user]);
+    }
+    public function update($id)
+    {
+        $roles = implode(',', [UserRoles::ADMIN, UserRoles::CITIZEN, UserRoles::EXECUTIVE]);
+        $validated = $this->validate(array(
+            'username'         => "required|min_length[5]|max_length[25]|is_unique[users.username,id,$id]",
+            'password'         => 'permit_empty|min_length[5]|max_length[50]',
+            'firstname'        => 'required|min_length[5]|max_length[60]',
+            'lastname'         => 'required|min_length[5]|max_length[60]',
+            'roles'            => "required|in_list[$roles]",
+            'email'            => "required|min_length[5]|max_length[60]|valid_email|is_unique[users.email,id,$id]",
+        ));
+
+        // if validation fails
+        if (!$validated) return view('users/edit', [
+            'errors' => $this->validator->getErrors(),
+            'user' => model(User::class)->find($id)
+        ]);
+
+        // get submitted form data
+        $form = new UserEntity($this->request->getPost());
+        $form->id = $id;
+
+        if (!$form->pasword) {
+            unset($form->password);
+        }
+
+        // create user record
+        $registered = model(User::class)->save($form);
+
+        // if an error occurs while saving the user
+        if (!$registered) return view('users/register', [
+            'error' => 'Failed to save user'
+        ]);
+
+        // redirect to dashboard
+        return redirect()->to(env('app.baseURL') . 'users');
+    }
+
     public function login()
     {
         return view('users/login');
