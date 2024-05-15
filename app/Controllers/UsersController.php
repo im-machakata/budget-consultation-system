@@ -99,11 +99,9 @@ class UsersController extends BaseController
         ));
 
         // if validation fails
-        if (!$validated) {
-            return view('users/login', [
-                'errors' => $this->validator->getErrors()
-            ]);
-        }
+        if (!$validated) return view('users/login', [
+            'errors' => $this->validator->getErrors()
+        ]);
 
         // get submitted form data
         $form = new UserEntity($this->request->getPost());

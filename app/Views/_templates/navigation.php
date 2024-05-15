@@ -13,7 +13,7 @@ function pageIsActive($url)
     <div class="container-fluid">
         <a class="navbar-brand fw-bold ps-lg-2 ms-0 d-flex align-items-center" href="/">
             <img src="/static/images/logo.jpg" alt="" class="rounded me-2 me-lg-3" style="height: 35px;">
-            <?= env('app.name') ?? 'a1Bugcon'?>
+            <?= env('app.name') ?? 'a1Bugcon' ?>
         </a>
         <button class="navbar-toggler btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
@@ -24,14 +24,8 @@ function pageIsActive($url)
                     <a class="nav-link <?= pageIsActive('/dashboard') ?>" href="/dashboard">Dashboard</a>
                 </li>
                 <?php if ($isExecutive) : ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle <?= pageIsActive('/requests') ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Requests
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/requests">View Requests</a></li>
-                            <li><a class="dropdown-item" href="/requests/new">New Request</a></li>
-                        </ul>
+                    <li class="nav-item">
+                        <a class="nav-link <?= pageIsActive('/reports') ?>" href="/reports">Reports</a>
                     </li>
                 <?php elseif ($isAdmin) : ?>
                     <li class="nav-item">
@@ -45,7 +39,7 @@ function pageIsActive($url)
                     </li>
                 <?php elseif ($isCitizen) : ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= pageIsActive('/requests') ?>" href="/requests">Requests</a>
+                        <a class="nav-link <?= pageIsActive('/reports') ?>" href="/reports">Reports</a>
                     </li>
                 <?php endif; ?>
                 <li class="nav-item">
