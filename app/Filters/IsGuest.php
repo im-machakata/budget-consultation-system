@@ -26,7 +26,7 @@ class IsGuest implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (session()->get('user')) {
-            return response()->setBody('Bad Request!')->setStatusCode(400);
+            return redirect()->to(env('app.baseURL') . 'dashboard');
         }
     }
 

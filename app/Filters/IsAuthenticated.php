@@ -35,10 +35,6 @@ class IsAuthenticated implements FilterInterface
         if (!session()->get('user')) {
             return redirect()->to(env('app.baseURL') . 'login');
         }
-
-        if (!key_exists($arguments, $roles)) {
-            return redirect()->to(env('app.baseURL') . 'login');
-        }
     }
 
     /**
