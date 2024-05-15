@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\ReportEntity;
 use CodeIgniter\Model;
 
 class Report extends Model
@@ -9,7 +10,7 @@ class Report extends Model
     protected $table            = 'reports';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
-    protected $returnType       = 'array';
+    protected $returnType       = ReportEntity::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [

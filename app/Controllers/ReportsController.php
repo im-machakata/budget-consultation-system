@@ -48,8 +48,8 @@ class ReportsController extends BaseController
     public function approve($id)
     {
         $report = model(Report::class)->find($id);
-        if (!$report['approved']) {
-            $report['approved'] = (int) true;
+        if (!$report->approved) {
+            $report->approved = (int) true;
             model(Report::class)->save($report);
         }
         return redirect()->back();
@@ -57,8 +57,8 @@ class ReportsController extends BaseController
     public function reject($id)
     {
         $report = model(Report::class)->find($id);
-        if ($report['approved']) {
-            $report['approved'] = (int) false;
+        if ($report->approved) {
+            $report->approved = (int) false;
             model(Report::class)->save($report);
         }
         return redirect()->back();

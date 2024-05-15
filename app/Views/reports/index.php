@@ -49,32 +49,31 @@ echo $this->include('_templates/head');
                                 <th scope="col">Item</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Due On</th>
-                                <?php if ($user->roles == UserRoles::ADMIN) : ?>
-                                    <th scope="col">Actions</th>
-                                <?php endif; ?>
+                                <th scope="col">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($reports as $report) : ?>
                                 <tr>
-                                    <td><?= $report['id'] ?></td>
-                                    <td><?= $report['item'] ?></td>
-                                    <td><?= $report['quantity'] ?></td>
-                                    <td><?= $report['due_date'] ?></td>
+                                    <td><?= $report->id ?></td>
+                                    <td><?= $report->item ?></td>
+                                    <td><?= $report->quantity ?></td>
+                                    <td><?= $report->due_date ?></td>
 
-                                    <?php if ($user->roles == UserRoles::ADMIN) : ?>
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <?php if ($report['approved'] == 1) : ?>
-                                                    <a href="/reports/reject/<?= $report['id'] ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
-                                                    <a href="/reports/approve/<?= $report['id'] ?>" class="btn btn-sm btn-success border-0 disabled"><i class="fa fa-check"></i> Approved</a>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <?php if ($user->roles == UserRoles::ADMIN) : ?>
+                                                <?php if ($report->approved == 1) : ?>
+                                                    <a href="/reports/reject/<?= $report->id ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
+                                                    <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-success border-0 disabled"><i class="fa fa-check"></i> Approved</a>
                                                 <?php else : ?>
-                                                    <a href="/reports/reject/<?= $report['id'] ?>" class="btn btn-sm btn-warning disabled"><i class="fa fa-cancel"></i> Rejected</a>
-                                                    <a href="/reports/approve/<?= $report['id'] ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
+                                                    <a href="/reports/reject/<?= $report->id ?>" class="btn btn-sm btn-warning disabled"><i class="fa fa-cancel"></i> Rejected</a>
+                                                    <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
                                                 <?php endif; ?>
-                                            </div>
-                                        </td>
-                                    <?php endif; ?>
+                                            <?php endif; ?>
+                                                <a href="/reports/<?= $report->id ?>#comments" class="btn btn-sm btn-primary"><i class="fa fa-comments"></i> Comments</a>
+                                        </div>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
