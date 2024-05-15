@@ -13,7 +13,7 @@ function pageIsActive($url)
     <div class="container-fluid">
         <a class="navbar-brand fw-bold ps-lg-2 ms-0 d-flex align-items-center" href="/">
             <img src="/static/images/logo.jpg" alt="" class="rounded me-2 me-lg-3" style="height: 35px;">
-            <?= env('app.name') ?>
+            <?= env('app.name') ?? 'a1Bugcon'?>
         </a>
         <button class="navbar-toggler btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
