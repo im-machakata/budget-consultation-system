@@ -10,6 +10,14 @@ use UserRoles;
 
 class UsersController extends BaseController
 {
+    public function index()
+    {
+        $users = model(User::class);
+        return view('users/index', [
+            'users' => $users->paginate(10),
+            'pager' => $users->pager
+        ]);
+    }
     public function login()
     {
         return view('users/login');
