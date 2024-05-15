@@ -3,7 +3,6 @@
 use App\Controllers\DashboardsController;
 use App\Controllers\UsersController;
 use App\Controllers\MigrationController;
-use App\Filters\IsAuthenticated;
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
@@ -18,6 +17,9 @@ $routes->group('', ['filter' => 'guest'], static function (RouteCollection $rout
 $routes->group('', ['filter' => 'auth'], static function (RouteCollection $routes): void {
     $routes->addRedirect('/', '/dashboard', 301);
     $routes->get('/dashboard', [DashboardsController::class,  'index']);
+
+    // user routes
+    $routes->get('/users', [UsersController::class,  'index'], ['filter' => 'auth:' . UserRoles::ADMIN]);
     $routes->get('/logout', [UsersController::class, 'logout']);
 });
 
