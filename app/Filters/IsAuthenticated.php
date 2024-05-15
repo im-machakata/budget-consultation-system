@@ -26,14 +26,12 @@ class IsAuthenticated implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $roles = [
-            UserRoles::ADMIN,
-            UserRoles::CITIZEN,
-            UserRoles::EXECUTIVE
-        ];
-
         if (!session()->get('user')) {
             return redirect()->to(env('app.baseURL') . 'login');
+        }
+
+        if (!in_array(session()->get('user')->roles, $arguments)) {
+            return response()->setBody('Not authorised!')->setStatusCode(401);
         }
     }
 
