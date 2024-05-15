@@ -18,6 +18,17 @@ class UsersController extends BaseController
             'pager' => $users->pager
         ]);
     }
+    public function ban($id)
+    {
+        $user = model(User::class)->find($id);
+
+        if(!$user->banned_at){
+            $user->banned_at = time();
+            model(User::class)->save($user);
+        }
+        
+        return redirect()->back();
+    }
     public function login()
     {
         return view('users/login');

@@ -18,8 +18,11 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
     $routes->addRedirect('/', '/dashboard', 301);
     $routes->get('/dashboard', [DashboardsController::class,  'index']);
 
-    // user routes
-    $routes->get('/users', [UsersController::class,  'index'], ['filter' => 'auth:' . UserRoles::ADMIN]);
+    // admin user routes
+    $routes->group('', ['filter' => 'auth:' . UserRoles::ADMIN], static function (RouteCollection $routes): void {
+        $routes->get('/users', [UsersController::class,  'index']);
+        $routes->get('/users/ban/(:num)', [UsersController::class,  'ban']);
+    });
     $routes->get('/logout', [UsersController::class, 'logout']);
 });
 
