@@ -35,13 +35,13 @@ echo $this->include('_templates/head');
                                 <td>
                                     <div class="d-flex gap-2">
                                         <?php if ($myProfile->id == $user->id) : ?>
+                                            <a href="/users/ban/<?= $user->id ?>" class="btn btn-sm btn-danger disabled" aria-disabled="true" disabled><i class="fa fa-ban"></i> Ban</a>
+                                        <?php else : ?>
                                             <?php if ($user->banned_at) : ?>
                                                 <a href="/users/unban/<?= $user->id ?>" class="btn btn-sm btn-outline-danger"><i class="fa fa-ban"></i> Unban</a>
                                             <?php else : ?>
                                                 <a href="/users/ban/<?= $user->id ?>" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Ban</a>
                                             <?php endif; ?>
-                                        <?php else : ?>
-                                            <a href="/users/ban/<?= $user->id ?>" class="btn btn-sm btn-danger disabled" aria-disabled="true" disabled><i class="fa fa-ban"></i> Ban</a>
                                         <?php endif; ?>
                                         <a href="/users/comments/<?= $user->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-comments"></i> Comments</a>
                                         <a href="/users/reports/<?= $user->id ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-newspaper"></i> Reports</a>
