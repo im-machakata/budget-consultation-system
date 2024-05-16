@@ -70,7 +70,7 @@ echo $this->include('_templates/head');
                                                 <?php if ($report->approved == 1) : ?>
                                                     <a href="/reports/reject/<?= $report->id ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
                                                 <?php else : ?>
-                                                    <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-outline-success"><i class="fa fa-check"></i> Approve</a>
+                                                    <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
                                                 <?php endif; ?>
                                             <?php endif; ?>
                                             <a href="/reports/<?= $report->id ?>#comments" class="btn btn-sm btn-primary"><i class="fa fa-comments"></i> Comments</a>
