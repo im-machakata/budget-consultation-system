@@ -24,7 +24,7 @@ class DashboardsController extends BaseController
                 array(
                     'icon'    => 'fa fa-comments',
                     'comment' => 'My Comments',
-                    'value'   => $comments->where('user_id',$user->id)->selectCount('id')->first()->id
+                    'value'   => $comments->where('user_id', $user->id)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-ban',

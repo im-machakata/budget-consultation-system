@@ -19,3 +19,7 @@ enum UserRoles
     const CITIZEN = 'citizen';
     const EXECUTIVE = 'executive';
 }
+function url($url)
+{
+    return env('app.baseURL') . $url;
+}

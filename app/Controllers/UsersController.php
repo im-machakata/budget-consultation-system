@@ -28,7 +28,7 @@ class UsersController extends BaseController
             model(User::class)->save($user);
         }
 
-        return redirect()->back();
+        return redirect()->to(url('users'));
     }
     public function unban($id)
     {
@@ -39,7 +39,7 @@ class UsersController extends BaseController
             model(User::class)->save($user);
         }
 
-        return redirect()->back();
+        return redirect()->to(url('users'));
     }
     public function edit($id)
     {
@@ -83,7 +83,7 @@ class UsersController extends BaseController
         ]);
 
         // redirect to dashboard
-        return redirect()->to(env('app.baseURL') . 'users');
+        return redirect()->to(url('users'));
     }
 
     public function login()
@@ -122,7 +122,7 @@ class UsersController extends BaseController
         session()->set('user', $user);
 
         // redirect to dashboard
-        return redirect()->to(env('app.baseURL') . 'dashboard');
+        return redirect()->to(url('dashboard'));
     }
 
     public function register()
@@ -158,12 +158,12 @@ class UsersController extends BaseController
         ]);
 
         // redirect to dashboard
-        return redirect()->to(env('app.baseURL') . 'dashboard');
+        return redirect()->to(url('dashboard'));
     }
 
     public function logout()
     {
         session()->remove('user');
-        return redirect()->to(env('app.baseURL') . 'login');
+        return redirect()->to(url('login'));
     }
 }
