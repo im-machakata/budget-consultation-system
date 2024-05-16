@@ -11,7 +11,7 @@ echo $this->include('_templates/head');
         <div class="bg-white shadow-sm rounded p-2 pb-2">
             <div class="d-flex justify-content-between mb-2">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="/users/new" class="btn btn-primary">New User</a>
+                    <!-- <a href="/users/new" class="btn btn-primary">New User</a> -->
                 </div>
             </div>
             <div class="table-responsive mb-2 mb-lg-0">
@@ -22,6 +22,7 @@ echo $this->include('_templates/head');
                             <th scope="col">Firstname</th>
                             <th scope="col">Lastname</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Joined</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -32,6 +33,7 @@ echo $this->include('_templates/head');
                                 <td><?= $user->firstname ?></td>
                                 <td><?= $user->lastname ?></td>
                                 <td><?= $user->email ?></td>
+                                <td><?= $user->created_at->toFormattedDateString() ?></td>
                                 <td>
                                     <div class="d-flex gap-2">
                                         <?php if ($myProfile->id == $user->id) : ?>
