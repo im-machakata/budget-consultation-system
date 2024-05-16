@@ -52,7 +52,7 @@ class ReportsController extends BaseController
             $report->approved = (int) true;
             model(Report::class)->save($report);
         }
-        return redirect()->back();
+        return redirect()->to(url('reports'));
     }
     public function reject($id)
     {
@@ -61,6 +61,13 @@ class ReportsController extends BaseController
             $report->approved = (int) false;
             model(Report::class)->save($report);
         }
-        return redirect()->back();
+        return redirect()->to(url('reports'));
+    }
+    public function show($id)
+    {
+        $report = model(Report::class)->find($id);
+        return view('reports/show', [
+            'report' => $report
+        ]);
     }
 }

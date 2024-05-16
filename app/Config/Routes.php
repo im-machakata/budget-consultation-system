@@ -19,6 +19,7 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
     $routes->addRedirect('/', '/dashboard', 301);
     $routes->get('/dashboard', [DashboardsController::class,  'index']);
     $routes->get('/reports', [ReportsController::class,  'index']);
+    $routes->get('/reports/(:num)', [ReportsController::class,  'show']);
 
     // admin user routes
     $routes->group('', ['filter' => 'auth:' . UserRoles::ADMIN], static function (RouteCollection $routes): void {
