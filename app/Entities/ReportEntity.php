@@ -15,7 +15,7 @@ class ReportEntity extends Entity
     public function comments()
     {
         if (!$this->id) return [];
-        return model(Comment::class)->where('report_id', $this->id)->findAll();
+        return model(Comment::class)->where('report_id', $this->id)->orderBy('created_at', 'ASC')->findAll();
     }
     public function owner()
     {
