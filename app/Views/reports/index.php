@@ -34,7 +34,7 @@ echo $this->include('_templates/head');
                                 <input type="date" name="due_date" id="quantity" class="form-control" min="<?= date('Y-m-d', strtotime('+24 hours')) ?>" placeholder="Due Date" autocomplete="off" required>
                             </div>
                         </div>
-                        <div class="col-1">
+                        <div class="col-lg-1">
                             <div class="mb-3 mb-lg-4">
                                 <button class="btn btn-success border-0 mt-2 w-100" type="submit"><i class="fa fa-plus-circle"></i></button>
                             </div>
