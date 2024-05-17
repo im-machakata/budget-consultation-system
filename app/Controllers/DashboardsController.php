@@ -22,9 +22,9 @@ class DashboardsController extends BaseController
         if ($user->roles == UserRoles::CITIZEN) {
             $dashboardReports = array(
                 array(
-                    'icon'    => 'fa fa-comments',
-                    'comment' => 'My Comments',
-                    'value'   => $comments->where('user_id', $user->id)->selectCount('id')->first()->id
+                    'icon'    => 'fa fa-thumbs-up',
+                    'comment' => 'Approved Reports',
+                    'value'   => $reports->ownedBy($user->id)->where('approved', true)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-ban',
@@ -32,15 +32,15 @@ class DashboardsController extends BaseController
                     'value'   => $users->banned()->selectCount('id')->first()->id
                 ),
                 array(
+                    'icon'    => 'fa fa-comments',
+                    'comment' => 'My Comments',
+                    'value'   => $comments->where('user_id', $user->id)->selectCount('id')->first()->id
+                ),
+                array(
                     'icon'    => 'fa fa-user',
                     'comment' => 'Registered Users',
                     'value'   => $users->selectCount('id')->first()->id
                 ),
-                array(
-                    'icon'    => 'fa fa-newspaper',
-                    'comment' => 'All Reports',
-                    'value'   => $reports->selectCount('id')->first()->id
-                )
             );
         } elseif ($user->roles == UserRoles::EXECUTIVE) {
             $dashboardReports = array(
