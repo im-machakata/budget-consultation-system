@@ -67,6 +67,11 @@ class Report extends Model
     {
         return $this->where('due_date >', Time::create()->toDateString());
     }
+    public function rejected()
+    {
+        return $this->where('approved', false)
+            ->where('updated_at > created_at', null, false);
+    }
     protected function fixDueDate(array $data)
     {
         if (isset($data['data']['due_date'])) {
