@@ -63,6 +63,10 @@ class Report extends Model
     {
         return $this->where('created_at = updated_at', null, false);
     }
+    public function expired()
+    {
+        return $this->where('due_date >', Time::create()->toDateString());
+    }
     protected function fixDueDate(array $data)
     {
         if (isset($data['data']['due_date'])) {
