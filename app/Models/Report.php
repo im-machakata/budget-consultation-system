@@ -18,7 +18,8 @@ class Report extends Model
         'item',
         'quantity',
         'due_date',
-        'approved'
+        'approved',
+        'amount'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -46,7 +47,7 @@ class Report extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
+
     public function ownedBy(int $userId)
     {
         return $this->where('user_id', $userId);

@@ -19,14 +19,19 @@ echo $this->include('_templates/head');
                 <?php if ($user->roles == UserRoles::EXECUTIVE) : ?>
                     <form action="/reports" method="post" class="col-12 row align-items-center mx-auto">
                         <?= $this->include('_templates/alerts') ?>
-                        <div class="col-lg-7">
+                        <div class="col-lg-5">
                             <div class="mb-3">
                                 <input type="text" name="item" id="item" class="form-control" placeholder="Item" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-lg-2">
                             <div class="mb-3">
-                                <input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Quantity" autocomplete="off" required>
+                                <input type="number" name="item_price" id="item_price" class="form-control" min="1" placeholder="Item Price" autocomplete="off" required>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="mb-3">
+                                <input type="number" step="0.1" name="quantity" id="quantity" class="form-control" min="1" placeholder="Quantity" autocomplete="off" required>
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -48,7 +53,7 @@ echo $this->include('_templates/head');
                                 <th scope="col">ID</th>
                                 <th scope="col">Item</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Added On</th>
+                                <th scope="col">Total Price</th>
                                 <th scope="col">Due On</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Actions</th>
@@ -60,7 +65,7 @@ echo $this->include('_templates/head');
                                     <td><?= $report->id ?></td>
                                     <td><?= $report->item ?></td>
                                     <td><?= $report->quantity ?></td>
-                                    <td><?= $report->created_at->toDateString() ?></td>
+                                    <td><?= $report->item_price * $report->quantity ?></td>
                                     <td><?= $report->due_date ?></td>
                                     <td>
                                         <?php if ($report->created_at == $report->updated_at) {

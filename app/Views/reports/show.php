@@ -1,4 +1,5 @@
 <?php
+helper('number');
 $user = session()->get('user');
 $this->setVar('title', $report->item);
 echo $this->include('_templates/head');
@@ -6,19 +7,31 @@ echo $this->include('_templates/head');
 <main class="bg-light min-vh-100">
     <?= $this->include('_templates/navigation'); ?>
     <div class="row container-fluid justify-content-start mx-auto my-5">
-        <h1 class="fs-2"><?= $report->quantity ?>, <?= $report->item ?></h1>
+        <h1 class="fs-2"><?= $report->quantity ?> &times; <?= $report->item ?></h1>
         <div class="row mb-4">
-            <div class="col-auto">
+            <div class="col-auto col-lg-4">
                 <span class="fw-bold">Requested by:</span>
                 <?= $report->owner()->getFullName() ?>
             </div>
-            <div class="col-auto">
+            <div class="col-auto col-lg-4">
                 <span class="fw-bold">Requested on:</span>
                 <?= $report->created_at->toDateString() ?>
             </div>
-            <div class="col-auto">
+            <div class="col-auto col-lg-4">
                 <span class="fw-bold">Due Date:</span>
                 <?= $report->due_date ?>
+            </div>
+            <div class="col-auto col-lg-4">
+                <span class="fw-bold">Item Price:</span>
+                $<?= $report->item_price ?>
+            </div>
+            <div class="col-auto col-lg-4">
+                <span class="fw-bold">Quantity:</span>
+                <?= $report->quantity ?>
+            </div>
+            <div class="col-auto col-lg-4">
+                <span class="fw-bold">Total Price:</span>
+                <?= number_to_currency($report->item_price * $report->quantity, 'USD', 'en_US', '2') ?>
             </div>
         </div>
         <div class="col-12" id="comments">
@@ -28,12 +41,13 @@ echo $this->include('_templates/head');
                 </div>
                 <div class="col-lg-9 d-flex flex-column g-2">
                     <?php if (!$report->comments()) : ?>
-                        <div class="bg-white p-2 rounded shadow-sm mb-3">
+                        <div class="border rounded bg-white p-2 mb-3">
                             Be the first to comment on this topic.
                         </div>
                     <?php endif; ?>
                     <?php foreach ($report->comments()  as $comment) : ?>
-                        <div class="bg-white p-2 rounded shadow-sm mb-3">
+                        <div class="border rounded bg-white p-2 mb-3">
+                            <h3 class="fs-6"><?= $comment->getAuthor() ?></h3>
                             <?= $comment->comment ?>
                         </div>
                     <?php endforeach; ?>

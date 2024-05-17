@@ -32,6 +32,7 @@ class ReportsController extends BaseController
             'item' => 'required|min_length[5]|max_length[255]',
             'due_date' => 'required|valid_date',
             'quantity' => 'required|greater_than[0]',
+            'item_price' => 'required|greater_than[0]|decimal',
         ]);
 
         if (!$validated) return view('reports/index', [
