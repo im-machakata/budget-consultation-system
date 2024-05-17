@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Entities\ReportEntity;
 use App\Models\Report;
 use CodeIgniter\HTTP\ResponseInterface;
 use UserRoles;
@@ -38,8 +39,8 @@ class ReportsController extends BaseController
             'reports' => $reports->orderBy('id', 'DESC')->paginate(10),
             'pager' => $reports->pager
         ]);
-        $newItem = $this->request->getPost();
-        $newItem['user_id'] = session()->get('user')->id;
+        $newItem = new ReportEntity($this->request->getPost());
+        $newItem->user_id = session()->get('user')->id;
 
         // save new item
         model(Report::class)->save($newItem);
