@@ -68,9 +68,9 @@ class DashboardsController extends BaseController
         } elseif ($user->roles == UserRoles::ADMIN) {
             $dashboardReports = array(
                 array(
-                    'icon'    => 'fa fa-comments',
-                    'comment' => 'Approved Comments',
-                    'value'   => $comments->selectCount('id')->first()->id
+                    'icon'    => 'fa fa-thumbs-up',
+                    'comment' => 'Approved Reports',
+                    'value'   => $reports->where('approved', true)->selectCount('id')->first()->id
                 ),
                 array(
                     'icon'    => 'fa fa-ban',
@@ -84,7 +84,7 @@ class DashboardsController extends BaseController
                 ),
                 array(
                     'icon'    => 'fa fa-newspaper',
-                    'comment' => 'All Reports',
+                    'comment' => 'Submitted Reports',
                     'value'   => $reports->selectCount('id')->first()->id
                 )
             );
