@@ -68,11 +68,6 @@ class DashboardsController extends BaseController
         } elseif ($user->roles == UserRoles::ADMIN) {
             $dashboardReports = array(
                 array(
-                    'icon'    => 'fa fa-thumbs-up',
-                    'comment' => 'Approved Reports',
-                    'value'   => $reports->where('approved', true)->selectCount('id')->first()->id
-                ),
-                array(
                     'icon'    => 'fa fa-ban',
                     'comment' => 'Banned Users',
                     'value'   => $users->banned()->selectCount('id')->first()->id
@@ -88,24 +83,32 @@ class DashboardsController extends BaseController
                     'value'   => $users->selectCount('id')->first()->id
                 ),
                 array(
-                    'icon'    => 'fa fa-newspaper',
-                    'comment' => 'Expired Reports',
-                    'value'   => $reports->expired()->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-newspaper',
-                    'comment' => 'Pending Reports',
-                    'value'   => $reports->excludeExpired()->pending()->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-newspaper',
-                    'comment' => 'Rejected Reports',
-                    'value'   => $reports->excludeExpired()->rejected()->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-newspaper',
+                    'icon'    => 'fa fa-check',
                     'comment' => 'Submitted Reports',
                     'value'   => $reports->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa fa-thumbs-up',
+                    'comment' => 'Approved Reports',
+                    'value'   => $reports->where('approved', true)->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa fa-clock',
+                    'comment' => 'Pending Reports',
+                    // get all pending reports (that have not yet expired)
+                    'value'   => $reports->whereNotExpired()->pending()->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa fa-thumbs-down',
+                    'comment' => 'Rejected Reports',
+                    // get all reports that have not yet expired but were rejected
+                    'value'   => $reports->whereNotExpired()->rejected()->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa fa-calendar-check',
+                    'comment' => 'Expired Reports',
+                    // get all reports that have expired whether after being approved or not
+                    'value'   => $reports->whereExpired()->selectCount('id')->first()->id
                 ),
             );
         }

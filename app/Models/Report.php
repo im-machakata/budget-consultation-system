@@ -55,17 +55,17 @@ class Report extends Model
     {
         return $this->where('user_id', $userId);
     }
-    public function excludeExpired()
+    public function whereNotExpired()
     {
-        return $this->where('due_date <', Time::create()->toDateString());
+        return $this->where('due_date >=', Time::create()->toDateString());
     }
     public function pending()
     {
         return $this->where('created_at = updated_at', null, false);
     }
-    public function expired()
+    public function whereExpired()
     {
-        return $this->where('due_date >', Time::create()->toDateString());
+        return $this->where('due_date <', Time::create()->toDateString());
     }
     public function rejected()
     {

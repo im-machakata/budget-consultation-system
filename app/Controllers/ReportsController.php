@@ -16,7 +16,7 @@ class ReportsController extends BaseController
         $reports = model(Report::class);
 
         // get report due to expire
-        $reports->excludeExpired();
+        $reports->whereNotExpired();
 
         // show approved reports only to citizens
         if ($user->roles == UserRoles::CITIZEN) {
