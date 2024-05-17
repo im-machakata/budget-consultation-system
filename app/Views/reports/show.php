@@ -9,7 +9,6 @@ echo $this->include('_templates/head');
     <div class="row container-fluid justify-content-start mx-auto my-5">
         <h1 class="fs-2"><?= $report->quantity ?> &times; <?= $report->item ?></h1>
         <div class="row mb-4">
-            <?= $this->include('_templates/alerts') ?>
             <div class="col-auto col-lg-3">
                 <span class="fw-bold">Requested by:</span>
                 <?= $report->owner()->getFullName() ?>
@@ -41,6 +40,7 @@ echo $this->include('_templates/head');
                 <div class="col-12">
                     <h2 class="fs-4">Comments</h2>
                 </div>
+                <?= $this->include('_templates/alerts') ?>
                 <div class="col-lg-7 d-flex flex-column g-2 container-fluid px-3">
                     <?php if (!$report->comments()) : ?>
                         <div class="border rounded bg-white p-2 mb-3">

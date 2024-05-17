@@ -90,10 +90,9 @@ class ReportsController extends BaseController
 
         $newComment = new CommentEntity($this->request->getPost());
 
-        if (!$validated) return redirect()->to(url('reports/' . $id))->with('reports/show', [
+        if (!$validated) return view('reports/show', [
             'errors' => $this->validator->getErrors(),
-            'reports' => $comments->orderBy('id', 'DESC')->paginate(10),
-            'pager' => $comments->pager
+            'report' => model(Report::class)->find($id),
         ]);
         $newComment->user_id = session()->get('user')->id;
         $newComment->report_id = $id;
