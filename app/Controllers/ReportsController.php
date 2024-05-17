@@ -7,6 +7,7 @@ use App\Entities\CommentEntity;
 use App\Entities\ReportEntity;
 use App\Models\Comment;
 use App\Models\Report;
+use App\ThirdParty\CommentsModerator;
 use CodeIgniter\HTTP\ResponseInterface;
 use UserRoles;
 
@@ -84,15 +85,16 @@ class ReportsController extends BaseController
     {
         $comments = model(Comment::class);
         $validated = $this->validate([
-            'comment' => 'required|min_length[5]|max_length[255]',
+            'comment' => 'required|min_length[5]|max_length[255]|is_unique[comments.comment,report_id]|comment_safe',
         ]);
 
-        if (!$validated) return redirect()->back()->with('reports/show', [
+        $newComment = new CommentEntity($this->request->getPost());
+
+        if (!$validated) return redirect()->to(url('reports/' . $id))->with('reports/show', [
             'errors' => $this->validator->getErrors(),
             'reports' => $comments->orderBy('id', 'DESC')->paginate(10),
             'pager' => $comments->pager
         ]);
-        $newComment = new CommentEntity($this->request->getPost());
         $newComment->user_id = session()->get('user')->id;
         $newComment->report_id = $id;
 
