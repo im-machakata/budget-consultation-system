@@ -55,6 +55,10 @@ class Report extends Model
     {
         return $this->where('user_id', $userId);
     }
+    public function excludeExpired()
+    {
+        return $this->where('due_date <', Time::create()->toDateString());
+    }
     protected function fixDueDate(array $data)
     {
         if (isset($data['data']['due_date'])) {
