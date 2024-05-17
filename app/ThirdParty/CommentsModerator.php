@@ -5,6 +5,9 @@ namespace App\ThirdParty;
 use Exception;
 use Gemini;
 use Gemini\Data\Content;
+use Gemini\Data\SafetySetting;
+use Gemini\Enums\HarmBlockThreshold;
+use Gemini\Enums\HarmCategory;
 
 class CommentsModerator
 {
@@ -21,7 +24,23 @@ class CommentsModerator
     {
         self::init();
         if ($count > 3) throw new Exception("Failed to process request");
+        $safetySettingDangerousContent = new SafetySetting(
+            category: HarmCategory::HARM_CATEGORY_DANGEROUS_CONTENT,
+            threshold: HarmBlockThreshold::BLOCK_NONE
+        );
+
+        $safetySettingHateSpeech = new SafetySetting(
+            category: HarmCategory::HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold::BLOCK_NONE
+        );
+        $safetySettingHarrassment = new SafetySetting(
+            category: HarmCategory::HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold::BLOCK_NONE
+        );
         $chat = self::$client->geminiPro()
+            ->withSafetySetting($safetySettingDangerousContent)
+            ->withSafetySetting($safetySettingHarrassment)
+            ->withSafetySetting($safetySettingHateSpeech)
             ->startChat(history: [
                 Content::parse(part: self::$filter),
             ]);
