@@ -51,7 +51,7 @@ echo $this->include('_templates/head');
             </div>
             <div class="col-12">
                 <div class="mb-3 mb-lg-4">
-                    <button class="btn btn-lg btn-success mt-2" type="submit">Update</button>
+                    <button class="btn btn-lg btn-success border-0 mt-2" type="submit">Update Profile</button>
                 </div>
             </div>
         </form>
