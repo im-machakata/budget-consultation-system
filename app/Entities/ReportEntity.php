@@ -9,8 +9,10 @@ use CodeIgniter\Entity\Entity;
 class ReportEntity extends Entity
 {
     protected $datamap = [];
-    protected $dates   = ['created_at', 'updated_at', 'deleted_at','due_date'];
-    protected $casts   = [];
+    protected $dates   = ['created_at', 'updated_at', 'deleted_at', 'due_date'];
+    protected $casts   = [
+        'due_date' => 'date'
+    ];
     private $cache     = [];
 
     public function comments()

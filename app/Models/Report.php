@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Entities\ReportEntity;
 use CodeIgniter\Model;
+use CodeIgniter\I18n\Time;
+use App\Entities\ReportEntity;
 
 class Report extends Model
 {
@@ -39,7 +40,9 @@ class Report extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
+    protected $beforeInsert   = [
+        'fixDueDate'
+    ];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -51,5 +54,13 @@ class Report extends Model
     public function ownedBy(int $userId)
     {
         return $this->where('user_id', $userId);
+    }
+    protected function fixDueDate(array $data)
+    {
+        if (isset($data['data']['due_date'])) {
+            $dueDateTimestamp = $data['data']['due_date'];
+            $data['data']['due_date'] = Time::createFromTimestamp($dueDateTimestamp)->toDateString();
+        }
+        return $data;
     }
 }
