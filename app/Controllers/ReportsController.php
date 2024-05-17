@@ -16,7 +16,7 @@ class ReportsController extends BaseController
         $reports = model(Report::class);
 
         // get report due to expire
-        $reports->where('due_date >=', date('d-m-Y'));
+        $reports->where('due_date >=', date('Y-m-d'));
 
         // show approved reports only to citizens
         if ($user->roles == UserRoles::CITIZEN) {
