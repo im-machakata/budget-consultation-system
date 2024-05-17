@@ -15,7 +15,7 @@ echo $this->include('_templates/head');
             <p>What are your thoughts on this budget report.</p>
         <?php endif; ?>
         <div class="col-12">
-            <div class="container-fluid bg-white p-2 shadow-sm rounded">
+            <div class="container-fluid bg-white shadow-sm rounded p-3">
                 <?php if ($user->roles == UserRoles::EXECUTIVE) : ?>
                     <form action="/reports" method="post" class="col-12 row align-items-center mx-auto">
                         <?= $this->include('_templates/alerts') ?>
@@ -46,7 +46,7 @@ echo $this->include('_templates/head');
                         </div>
                     </form>
                 <?php endif; ?>
-                <div class="table-responsive mb-2 mb-lg-0 px-lg-2">
+                <div class="table-responsive mb-2 mb-lg-0">
                     <table class="table align-middle table-hover">
                         <thead>
                             <tr>

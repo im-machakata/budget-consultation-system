@@ -16,11 +16,11 @@ class ReportsController extends BaseController
         $reports = model(Report::class);
 
         // get report due to expire
-        $reports->where('due_date >', date('d-m-Y'));
+        $reports->where('due_date >=', date('d-m-Y'));
 
         // show approved reports only to citizens
         if ($user->roles == UserRoles::CITIZEN) {
-            $reports->where('approved', '1');
+            $reports->where('approved', true);
         }
 
         return view('reports/index', [
@@ -65,7 +65,7 @@ class ReportsController extends BaseController
     public function reject($id)
     {
         $report = model(Report::class)->find($id);
-        if ($report->approved) {
+        if ($report->approved || $report->created_at == $report->updated_at) {
             $report->approved = (int) false;
             model(Report::class)->save($report);
         }
