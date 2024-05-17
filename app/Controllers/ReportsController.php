@@ -33,7 +33,7 @@ class ReportsController extends BaseController
             'quantity' => 'required|greater_than[0]',
         ]);
 
-        if (!$validated) return redirect()->back()->with('reports/index', [
+        if (!$validated) return view('reports/index', [
             'errors' => $this->validator->getErrors(),
             'reports' => $reports->orderBy('id', 'DESC')->paginate(10),
             'pager' => $reports->pager
@@ -43,7 +43,10 @@ class ReportsController extends BaseController
 
         // save new item
         model(Report::class)->save($newItem);
-        return redirect()->back();
+        return view('reports/index', [
+            'reports' => $reports->orderBy('id', 'DESC')->paginate(10),
+            'pager' => $reports->pager
+        ]);
     }
     public function approve($id)
     {
