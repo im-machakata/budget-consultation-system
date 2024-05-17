@@ -62,14 +62,23 @@ echo $this->include('_templates/head');
                                     <td><?= $report->quantity ?></td>
                                     <td><?= $report->created_at->toDateString() ?></td>
                                     <td><?= $report->due_date ?></td>
-                                    <td><?= $report->approved == 1 ? '<span class="badge bg-success">Approved</span>' : '<span class="badge bg-danger">Rejected</span>' ?></td>
+                                    <td>
+                                        <?php if ($report->created_at == $report->updated_at) {
+                                            echo '<span class="badge bg-primary">Pending</span>';
+                                        } elseif ($report->approved == 1) {
+                                            echo '<span class="badge bg-success">Approved</span>';
+                                        } else {
+                                            echo '<span class="badge bg-danger">Rejected</span>';
+                                        } ?>
+                                    </td>
 
                                     <td>
                                         <div class="d-flex gap-2">
                                             <?php if ($user->roles == UserRoles::ADMIN) : ?>
-                                                <?php if ($report->approved == 1) : ?>
+                                                <?php if ($report->approved == 1 || $report->created_at == $report->updated_at) : ?>
                                                     <a href="/reports/reject/<?= $report->id ?>" class="btn btn-sm btn-warning"><i class="fa fa-cancel"></i> Reject</a>
-                                                <?php else : ?>
+                                                <?php endif;
+                                                if ($report->approved == 0 || $report->created_at == $report->updated_at) : ?>
                                                     <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
                                                 <?php endif; ?>
                                             <?php endif; ?>

@@ -46,23 +46,23 @@ class DashboardsController extends BaseController
             $dashboardReports = array(
                 array(
                     'icon'    => 'fa fa-newspaper',
+                    'comment' => 'All Your Reports',
+                    'value'   => $reports->ownedBy($user->id)->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa fa-thumbs-up',
                     'comment' => 'Approved Reports',
                     'value'   => $reports->ownedBy($user->id)->where('approved', true)->selectCount('id')->first()->id
                 ),
                 array(
-                    'icon'    => 'fa fa-newspaper',
+                    'icon'    => 'fa fa-face-meh-blank',
+                    'comment' => 'Pending Reports',
+                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->where('created_at <', 'updated_at', false)->selectCount('id')->first()->id
+                ),
+                array(
+                    'icon'    => 'fa-solid fa-heart-crack',
                     'comment' => 'Rejected Reports',
-                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-newspaper',
-                    'comment' => 'Submitted Reports',
-                    'value'   => $reports->ownedBy($user->id)->selectCount('id')->first()->id
-                ),
-                array(
-                    'icon'    => 'fa fa-comment',
-                    'comment' => 'Total Comments',
-                    'value'   => $comments->ownedBy($user->id)->selectCount('id')->first()->id
+                    'value'   => $reports->ownedBy($user->id)->where('approved', false)->where('created_at <', 'updated_at', false)->selectCount('id')->first()->id
                 ),
             );
         } elseif ($user->roles == UserRoles::ADMIN) {
