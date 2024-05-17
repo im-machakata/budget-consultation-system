@@ -63,7 +63,7 @@ echo $this->include('_templates/head');
                         </div>
                         <div class="col-12">
                             <div class="mb-3 mb-lg-4">
-                                <button class="btn btn-success border-0 mt-2 w-100" type="submit"><i class="fa fa-plus-circle"></i></button>
+                                <button class="btn btn-success border-0 mt-2 w-100" type="submit">Comment</button>
                             </div>
                         </div>
                     </form>
