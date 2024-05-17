@@ -87,11 +87,16 @@ echo $this->include('_templates/head');
                                                     <a href="/reports/approve/<?= $report->id ?>" class="btn btn-sm btn-success border-0"><i class="fa fa-check"></i> Approve</a>
                                                 <?php endif; ?>
                                             <?php endif; ?>
-                                            <a href="/reports/<?= $report->id ?>#comments" class="btn btn-sm btn-primary"><i class="fa fa-comments"></i> Comments</a>
+                                            <a href="/reports/<?= $report->id ?>" class="btn btn-sm btn-primary"><i class="fa fa-caret-right"></i> More Details</a>
                                         </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            <?php if (!$reports) : ?>
+                                <tr colspan="7">
+                                    Looks like the are not any reports at the moment.
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>
