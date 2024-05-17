@@ -17,7 +17,7 @@ class CommentsModerator
     private static function init()
     {
         self::$client = Gemini::client(env('app.gemini.apiKey') ?? '');
-        self::$filter = "Analyse the message, if it's in Shona, translate it. When that's done, check if it is safe for a public school platform, not abusive, does not have dirty words, and does not contain any hate speech, it must be children friendly. Return the response as a JSON with a safe boolean key, translation, error_message (if any) and context message. Your reply must be plain text.\nThe message: ";
+        self::$filter = "Analyse the message, if it's in Shona, translate it. When that's done, check if it is safe for a public school platform, not abusive, does not have dirty words, and does not contain any hate speech, it must be children friendly. Return the response as a JSON with a safe boolean key, translation, error_message (if any) and context message. Your reply must be plain text.";
     }
 
     public static function check(string $comment, int $count = 1): object
@@ -45,7 +45,7 @@ class CommentsModerator
                 Content::parse(part: self::$filter),
             ]);
         try {
-            $result = $chat->sendMessage(self::$filter . '\n\r' . $comment)->text();
+            $result = $chat->sendMessage($comment)->text();
             $response = json_decode($result);
         } catch (\Exception $e) {
             if ($response) $response = json_decode(str_replace(['```json', '```'], '', $result));
