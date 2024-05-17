@@ -9,27 +9,28 @@ echo $this->include('_templates/head');
     <div class="row container-fluid justify-content-start mx-auto my-5">
         <h1 class="fs-2"><?= $report->quantity ?> &times; <?= $report->item ?></h1>
         <div class="row mb-4">
-            <div class="col-auto col-lg-4">
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Requested by:</span>
                 <?= $report->owner()->getFullName() ?>
             </div>
-            <div class="col-auto col-lg-4">
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Requested on:</span>
-                <?= $report->created_at->toDateString() ?>
+                <?= $report->created_at->toFormattedDateString() ?>
             </div>
-            <div class="col-auto col-lg-4">
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Due Date:</span>
-                <?= $report->due_date ?>
+                <?= $report->due_date->toFormattedDateString() ?>
             </div>
-            <div class="col-auto col-lg-4">
+            <div class="col-lg-3"></div>
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Item Price:</span>
                 $<?= $report->item_price ?>
             </div>
-            <div class="col-auto col-lg-4">
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Quantity:</span>
                 <?= $report->quantity ?>
             </div>
-            <div class="col-auto col-lg-4">
+            <div class="col-auto col-lg-3">
                 <span class="fw-bold">Total Price:</span>
                 <?= number_to_currency($report->item_price * $report->quantity, 'USD', 'en_US', '2') ?>
             </div>

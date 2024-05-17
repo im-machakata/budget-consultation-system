@@ -66,7 +66,7 @@ echo $this->include('_templates/head');
                                     <td><?= $report->item ?></td>
                                     <td><?= $report->quantity ?></td>
                                     <td><?= $report->item_price * $report->quantity ?></td>
-                                    <td><?= $report->due_date ?></td>
+                                    <td><?= $report->due_date->toFormattedDateString() ?></td>
                                     <td>
                                         <?php if ($report->created_at == $report->updated_at) {
                                             echo '<span class="badge bg-primary">Pending</span>';
