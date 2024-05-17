@@ -54,8 +54,8 @@ class UsersController extends BaseController
         $validated = $this->validate(array(
             'username'         => "required|min_length[5]|max_length[25]|is_unique[users.username,id,$id]",
             'password'         => 'permit_empty|min_length[5]|max_length[50]',
-            'firstname'        => 'required|min_length[5]|max_length[60]',
-            'lastname'         => 'required|min_length[5]|max_length[60]',
+            'firstname'        => 'required|min_length[3]|max_length[60]',
+            'lastname'         => 'required|min_length[3]|max_length[60]',
             'roles'            => "required|in_list[$roles]",
             'email'            => "required|min_length[5]|max_length[60]|valid_email|is_unique[users.email,id,$id]",
         ));
@@ -136,8 +136,8 @@ class UsersController extends BaseController
             'username'         => 'required|min_length[5]|max_length[25]|is_unique[users.username]',
             'password'         => 'required|min_length[5]|max_length[50]',
             'confirm_password' => 'required|matches[password]',
-            'firstname'        => 'required|min_length[5]|max_length[60]',
-            'lastname'         => 'required|min_length[5]|max_length[60]',
+            'firstname'        => 'required|min_length[3]|max_length[60]',
+            'lastname'         => 'required|min_length[3]|max_length[60]',
             'email'            => 'required|min_length[5]|max_length[60]|valid_email|is_unique[users.email]',
         ));
 
