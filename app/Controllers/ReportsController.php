@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Entities\CommentEntity;
 use App\Entities\ReportEntity;
+use App\Models\Comment;
 use App\Models\Report;
 use CodeIgniter\HTTP\ResponseInterface;
 use UserRoles;
@@ -77,5 +79,25 @@ class ReportsController extends BaseController
         return view('reports/show', [
             'report' => $report
         ]);
+    }
+    public function comment(int $id)
+    {
+        $comments = model(Comment::class);
+        $validated = $this->validate([
+            'comment' => 'required|min_length[5]|max_length[255]',
+        ]);
+
+        if (!$validated) return redirect()->back()->with('reports/show', [
+            'errors' => $this->validator->getErrors(),
+            'reports' => $comments->orderBy('id', 'DESC')->paginate(10),
+            'pager' => $comments->pager
+        ]);
+        $newComment = new CommentEntity($this->request->getPost());
+        $newComment->user_id = session()->get('user')->id;
+        $newComment->report_id = $id;
+
+        // save new item
+        model(Comment::class)->save($newComment);
+        return redirect()->to(url(sprintf('reports/%d', $id)));
     }
 }

@@ -40,21 +40,21 @@ echo $this->include('_templates/head');
                 <div class="col-12">
                     <h2 class="fs-4">Comments</h2>
                 </div>
-                <div class="col-lg-9 d-flex flex-column g-2">
+                <div class="col-lg-9 d-flex flex-column g-2 container-fluid">
                     <?php if (!$report->comments()) : ?>
                         <div class="border rounded bg-white p-2 mb-3">
                             Be the first to comment on this topic.
                         </div>
                     <?php endif; ?>
                     <?php foreach ($report->comments()  as $comment) : ?>
-                        <div class="border rounded bg-white p-2 mb-3">
-                            <h3 class="fs-6"><?= $comment->getAuthor() ?></h3>
-                            <?= $comment->comment ?>
+                        <div class="border rounded bg-white p-2 mb-3" style="width: fit-content; max-width: 400px;">
+                            <h3 class="fs-6 fw-bold text-uppercase"><i class="fa fa-user-circle me-2"></i><?= $comment->getAuthor() ?></h3>
+                            <p class="mb-0"><?= $comment->comment ?></p>
                         </div>
                     <?php endforeach; ?>
                 </div>
                 <div class="col-lg-3">
-                    <form action="/reports/comment/<?= $report->id ?>" class="d-block row">
+                    <form action="/reports/<?= $report->id ?>" method="post" class="d-block row">
                         <div class="col-12">
                             <div class="form-floating mb-3">
                                 <textarea name="comment" id="comment" class="form-control" placeholder="Comment" autocomplete="off" required></textarea>

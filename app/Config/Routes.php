@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\CommentsController;
 use App\Controllers\DashboardsController;
 use App\Controllers\UsersController;
 use App\Controllers\MigrationController;
@@ -20,6 +21,7 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
     $routes->get('/dashboard', [DashboardsController::class,  'index']);
     $routes->get('/reports', [ReportsController::class,  'index']);
     $routes->get('/reports/(:num)', [ReportsController::class,  'show']);
+    $routes->post('/reports/(:num)', [ReportsController::class,  'comment']);
 
     // admin user routes
     $routes->group('', ['filter' => 'auth:' . UserRoles::ADMIN], static function (RouteCollection $routes): void {
