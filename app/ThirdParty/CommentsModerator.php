@@ -8,6 +8,7 @@ use Gemini\Data\Content;
 use Gemini\Data\SafetySetting;
 use Gemini\Enums\HarmBlockThreshold;
 use Gemini\Enums\HarmCategory;
+use ValueError;
 
 class CommentsModerator
 {
@@ -17,7 +18,7 @@ class CommentsModerator
     private static function init()
     {
         self::$client = Gemini::client(env('app.gemini.apiKey') ?? '');
-        self::$filter = "Analyse the message, if it's in Shona, translate it. When that's done, check if it is safe for a public school platform, not abusive, does not have dirty words, and does not contain any hate speech, it must be children friendly. Return the response as a JSON with a safe boolean key, translation, error_message (if any) and context message. Your reply must be plain text.";
+        self::$filter = "Analyse the message and check if it's safe for a school platform, does not contain hate speech, abusive & cursive words and is friendly for all. The message may contain Shona words, also make sure they're safe. Return a response in JSON with a safe boolean key, translation (if any), error_message (if any) and context message. Your reply must be plain text.";
     }
 
     public static function check(string $comment, int $count = 1): object
@@ -47,12 +48,11 @@ class CommentsModerator
         try {
             $result = $chat->sendMessage($comment)->text();
             $response = json_decode($result);
+        } catch (ValueError $e) {
+            return json_decode(json_encode(['error_message' => 'Our systems do not process such comments, please rethink and comment again.', 'safe' => false]));
         } catch (\Exception $e) {
             if ($response) $response = json_decode(str_replace(['```json', '```'], '', $result));
         }
-
-        // if result is empty, then it's probably because Gemini blocked the prompt
-        if (!$result) return json_decode(json_encode(['error_message' => 'Our systems do not process such comments, please rethink and comment again.', 'safe' => false]));
 
         // sometimes a timeout causes it to return null, so try again
         if (!$response) return self::check($comment, $count + 1);
