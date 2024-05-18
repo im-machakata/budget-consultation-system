@@ -18,6 +18,10 @@ class CommentsModerator
     private static function init()
     {
         self::$client = Gemini::client(env('app.gemini.apiKey') ?? '');
+        Gemini::factory()
+        ->withApiKey(env('app.gemini.apiKey') ?? '')
+        ->withHttpClient(new \GuzzleHttp\Client(['timeout' => 15]))
+        ->make();
         self::$filter = "Analyse the message and check if it's safe for a school platform, does not contain hate speech, abusive & cursive words and is friendly for all. The message may contain Shona words, also make sure they're safe. Return a response in JSON with a safe boolean key, translation (if any), error_message (if any) and context message. Your reply must be plain text.";
     }
 
