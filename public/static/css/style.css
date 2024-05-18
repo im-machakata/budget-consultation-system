@@ -5,6 +5,11 @@ button {
   border-color: #33ac5b;
 }
 
+.page-link {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 .form-control:focus {
   border-color: #176932;
 }
