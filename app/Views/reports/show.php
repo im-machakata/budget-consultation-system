@@ -7,8 +7,8 @@ echo $this->include('_templates/head');
 <main class="bg-light min-vh-100">
     <?= $this->include('_templates/navigation'); ?>
     <div class="row container-fluid justify-content-start mx-auto my-5">
-        <h1 class="fs-2"><?= $report->quantity ?> &times; <?= $report->item ?></h1>
-        <div class="row mb-4">
+        <div class="col-12 row mx-auto mb-4 container-fluid p-2">
+            <h1 class="fs-2"><?= $report->quantity ?> &times; <?= $report->item ?></h1>
             <div class="col-auto col-lg-3">
                 <span class="fw-bold">Requested by:</span>
                 <?= $report->owner()->getFullName() ?>
@@ -35,10 +35,10 @@ echo $this->include('_templates/head');
                 <?= number_to_currency($report->item_price * $report->quantity, 'USD', 'en_US', '2') ?>
             </div>
         </div>
-        <div class="col-12" id="comments">
+        <div class="col-12 container-fluid bg-white rounded shadow-sm p-3" id="comments">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="fs-4">Comments</h2>
+                    <h2 class="fs-3">Comments</h2>
                 </div>
                 <?= $this->include('_templates/alerts') ?>
                 <div class="col-lg-7 d-flex flex-column g-2 container-fluid px-3">
