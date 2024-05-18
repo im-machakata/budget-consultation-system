@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use App\Models\Report;
 use App\Models\User;
 use CodeIgniter\Entity\Entity;
 
@@ -21,5 +22,14 @@ class CommentEntity extends Entity
         }
         $user = $cache[$cacheKey];
         return sprintf('%s %s', $user->firstname, $user->lastname);
+    }
+    public function getReport()
+    {
+        if (!$this->report_id) return null;
+        $cacheKey = sprintf('report_%s', $this->report_id);
+        if (!isset($this->cache[$cacheKey])) {
+            $cache[$cacheKey] = model(Report::class)->find($this->report_id);
+        }
+        return $cache[$cacheKey];
     }
 }

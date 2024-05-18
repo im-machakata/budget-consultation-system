@@ -26,6 +26,7 @@ $routes->group('', ['filter' => 'auth'], static function (RouteCollection $route
     // admin user routes
     $routes->group('', ['filter' => 'auth:' . UserRoles::ADMIN], static function (RouteCollection $routes): void {
         $routes->get('/users', [UsersController::class,  'index']);
+        $routes->get('/comments', [CommentsController::class,  'index']);
         $routes->get('/users/ban/(:num)', [UsersController::class,  'ban']);
         $routes->get('/users/unban/(:num)', [UsersController::class,  'unban']);
         $routes->get('/users/edit/(:num)', [UsersController::class,  'edit']);
