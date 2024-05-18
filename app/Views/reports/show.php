@@ -53,9 +53,11 @@ echo $this->include('_templates/head');
                                 <h3 class="fs-6 fw-bold text-uppercase pt-2 ps-2">
                                     <i class="fa fa-user-circle me-2"></i><?= $comment->getAuthor() ?>
                                     <?= $user->id == $comment->user_id ? '(You)' : '' ?>
+                                    <small class="text-muted text-lowercase"><?= $comment->created_at->humanize() ?></small>
                                 </h3>
                                 <div class="p-2 pt-0 mb-3">
                                     <p class="mb-0"><?= $comment->comment ?></p>
+
                                 </div>
                             </div>
                         </div>
