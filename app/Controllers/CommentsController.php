@@ -17,4 +17,12 @@ class CommentsController extends BaseController
             'pager' => $comments->pager
         ]);
     }
+    public function delete(int $id)
+    {
+        $comments = model(Comment::class);
+        if ($comments->find($id) !== null) {
+            $comments->delete($id);
+        }
+        return redirect()->to(url('comments'));
+    }
 }

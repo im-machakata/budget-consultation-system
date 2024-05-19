@@ -23,6 +23,7 @@ echo $this->include('_templates/head');
                                 <p class="mb-0"><?= $comment->comment ?></p>
                                 <p class="mb-0">
                                     <a href="/reports/<?= $comment->getReport()->id ?>">View Report</a>
+                                    <a href="/comments/delete/<?= $comment->id ?>" class="ps-2">Delete Report</a>
                                 </p>
                             </div>
                         </div>
