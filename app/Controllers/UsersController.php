@@ -7,6 +7,7 @@ use App\Entities\UserEntity;
 use App\Models\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 use UserRoles;
 
 class UsersController extends BaseController
@@ -159,6 +160,28 @@ class UsersController extends BaseController
 
         // redirect to dashboard
         return redirect()->to(url('dashboard'));
+    }
+    public function reset()
+    {
+        return view('users/reset');
+    }
+    public function sendResetLink()
+    {
+        $validated = $this->validate([
+            'email' => 'required|valid_email'
+        ]);
+        if (!$validated) return view('users/reset', [
+            'errors' => $this->validator->getErrors(),
+        ]);
+        $user = model(User::class)->where('email', $this->request->getPost('email'))->first();
+        if ($user) {
+            Services::email()
+                ->setTo($this->request->getPost('email'))
+                ->setMessage(sprintf('Please use the following link to change your password. <a href="%s">Change password</a>. You can ignore this email if you did not request to change your password.', url('change-password')));
+        }
+        return view('users/reset', [
+            'success' => 'Reset instruction sent to your email.',
+        ]);
     }
 
     public function logout()
